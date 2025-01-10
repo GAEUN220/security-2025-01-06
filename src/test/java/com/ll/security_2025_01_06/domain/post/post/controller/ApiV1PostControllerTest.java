@@ -2,7 +2,6 @@ package com.ll.security_2025_01_06.domain.post.post.controller;
 
 import com.ll.security_2025_01_06.domain.member.member.entity.Member;
 import com.ll.security_2025_01_06.domain.member.member.service.MemberService;
-import com.ll.security_2025_01_06.domain.post.post.controller.ApiV1PostController;
 import com.ll.security_2025_01_06.domain.post.post.entity.Post;
 import com.ll.security_2025_01_06.domain.post.post.service.PostService;
 import org.hamcrest.Matchers;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -83,6 +83,7 @@ public class ApiV1PostControllerTest {
     }
 
     @Test
+    @WithUserDetails("user3")
     @DisplayName("글 작성")
     void t3() throws Exception {
         Member actor = memberService.findByUsername("user1").get();
