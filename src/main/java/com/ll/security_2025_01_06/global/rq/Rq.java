@@ -48,6 +48,8 @@ public class Rq {
         return memberService.findByUsername(username).get();
     }
 
+    // 스프링 시큐리티가 이해하는 방식으로 강제 로그인 처리
+    // 임시함수
     public void setLogin(String username) {
         UserDetails user = new User(
                 username,
@@ -56,7 +58,7 @@ public class Rq {
         );
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                this,
+                user,
                 user.getPassword(),
                 user.getAuthorities()
         );
