@@ -1,3 +1,4 @@
+
 package com.ll.security_2025_01_06.global.rq;
 
 import com.ll.security_2025_01_06.domain.member.member.entity.Member;
