@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/members")
 @RequiredArgsConstructor
@@ -87,4 +89,10 @@ public class ApiV1MemberController {
 
         return new MemberDto(member);
     }
+
+    @GetMapping("/userKey1")
+    public String  userKey1() {
+        return UUID.randomUUID().toString();
+    }
+
 }
