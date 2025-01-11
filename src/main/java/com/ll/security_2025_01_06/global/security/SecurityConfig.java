@@ -1,4 +1,3 @@
-
 package com.ll.security_2025_01_06.global.security;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain baseSecurityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
