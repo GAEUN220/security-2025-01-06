@@ -1,5 +1,8 @@
+
 package com.ll.security_2025_01_06.global.security;
 
+import com.ll.security_2025_01_06.global.rsData.RsData;
+import com.ll.security_2025_01_06.standard.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +25,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/*/posts/{id:\\d+}", "/api/*/posts", "/api/*/posts/{postId:\\d+}/comments")
                                 .permitAll()
-                                .requestMatchers("/api/*/members/login", "api/*/members/join")
+                                .requestMatchers("/api/*/members/login", "/api/*/members/join")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
@@ -38,7 +41,21 @@ public class SecurityConfig {
                         csrf ->
                                 csrf.disable()
                 )
-                .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(customAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(
+                        exceptionHandling -> exceptionHandling
+                                .authenticationEntryPoint(
+                                        (request, response, authException) -> {
+                                            response.setContentType("application/json;charset=UTF-8");
+                                            response.setStatus(403);
+                                            response.getWriter().write(
+                                                    Ut.json.toString(
+                                                            new RsData("403-1", request.getRequestURI() + ", " + authException.getLocalizedMessage())
+                                                    )
+                                            );
+                                        }
+                                )
+                );
 
         return http.build();
     }
